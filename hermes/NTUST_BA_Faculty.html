@@ -2,36 +2,52 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>國立臺灣科技大學企業管理系師資報告</title>
+    <title>台科大企管系師資報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
-        h1 { color: #333; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
+        .faculty-card { transition: transform 0.3s ease; }
+        .faculty-card:hover { transform: translateY(-10px); }
     </style>
 </head>
-<body>
-    <h1>國立臺灣科技大學企業管理系師資報告</h1>
-    <p>以下為部分專任教授研究專長概況：</p>
-    <table>
-        <tr>
-            <th>姓名</th>
-            <th>研究專長</th>
-        </tr>
-        <tr>
-            <td>欒斌教授</td>
-            <td>電子商務、網路行銷、區塊鏈應用、Web 3.0</td>
-        </tr>
-        <tr>
-            <td>陳崇文教授</td>
-            <td>請參考系所官方網站最新公告</td>
-        </tr>
-        <tr>
-            <td>(其他教授)</td>
-            <td>詳細列表請參考系所官方網站</td>
-        </tr>
-    </table>
-    <p>註：以上資料整理自公開搜尋索引，更多詳細師資陣容請至 <a href="https://ba.ntust.edu.tw/">台科大企管系官網</a> 查詢。</p>
+<body class="bg-slate-900 text-white p-8">
+    <h1 class="text-4xl font-bold mb-8 text-center text-blue-400">國立臺灣科技大學企業管理系 - 師資陣容</h1>
+    <div id="faculty-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">欒斌</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 電子商務、網路行銷、區塊鏈應用、Web 3.0</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">鄭仁偉</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 供應鏈管理、物流管理、作業管理</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">吳克振</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 行銷管理、消費者行為、服務行銷</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">張順教</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 人力資源管理、組織行為、勞資關係</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">葉穎蓉</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 國際企業、策略管理、國際行銷</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">陳崇文</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 財務管理、投資學、公司理財</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">盛麗慧</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 行銷管理、服務創新、消費者心理學</p>
+        </div>
+        <div class="faculty-card bg-slate-800 p-6 rounded-xl border border-blue-500/30 hover:border-blue-400">
+            <h2 class="text-2xl font-semibold text-blue-300 mb-2">張譯尹</h2>
+            <p class="text-slate-400"><strong>研究專長：</strong> 資訊管理、數位轉型、AI應用</p>
+        </div>
+    </div>
+    <script>
+        console.log("報告已載入。小小斌馬為您服務。");
+    </script>
 </body>
 </html>
