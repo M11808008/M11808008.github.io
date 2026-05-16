@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codex 全解【視頻文檔】</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Noto Sans SC', sans-serif; }
+    
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --accent: #6c5ce7;
+      --accent2: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.3);
+      --text-primary: #f0f0f5;
+      --text-secondary: #a0a0b0;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated gradient background */
+    .hero-bg {
+      background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #0d0d1a 50%, #12121f 75%, #0a0a0f 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Grid pattern overlay */
+    .grid-overlay {
+      background-image: 
+        linear-gradient(rgba(108, 92, 231, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 92, 231, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.6), transparent 70%);
+      top: -100px; right: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(162, 155, 254, 0.5), transparent 70%);
+      bottom: 100px; left: -80px;
+      animation-delay: -4s;
+    }
+
+    .orb-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.4), transparent 70%);
+      top: 50%; left: 50%;
+      animation-delay: -2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* Section cards */
+    .section-card {
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(18, 18, 31, 0.9));
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .section-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      border-color: rgba(108, 92, 231, 0.4);
+      box-shadow: 0 20px 60px rgba(108, 92, 231, 0.15), 0 0 40px rgba(108, 92, 231, 0.1);
+    }
+
+    .section-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Subsection items */
+    .sub-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .sub-item:hover {
+      background: rgba(108, 92, 231, 0.1);
+      border-color: rgba(108, 92, 231, 0.3);
+      transform: translateX(5px);
+    }
+
+    /* TOC sidebar */
+    .toc-item {
+      transition: all 0.3s ease;
+      border-left: 2px solid transparent;
+    }
+
+    .toc-item:hover, .toc-item.active {
+      border-left-color: var(--accent);
+      background: rgba(108, 92, 231, 0.1);
+      padding-left: 12px;
+    }
+
+    /* Scroll progress bar */
+    #progressBar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+      z-index: 9999;
+      transition: width 0.1s ease;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Badge styles */
+    .badge-new {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.95); }
+    }
+
+    /* Number counters */
+    .section-number {
+      font-size: 4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.3;
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      line-height: 1;
+    }
+
+    /* Terminal-style code blocks */
+    .code-block {
+      background: #0d0d1a;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 8px;
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+
+    .code-block::before {
+      content: '● ● ●';
+      display: block;
+      padding: 8px 15px;
+      background: rgba(108, 92, 231, 0.1);
+      color: var(--accent2);
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    .code-block code {
+      display: block;
+      padding: 15px 20px;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* Animate on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Navigation dot indicators */
+    .nav-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* Tag pills */
+    .tag-pill {
+      background: rgba(108, 92, 231, 0.15);
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      color: var(--accent2);
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .tag-pill:hover {
+      background: rgba(108, 92, 231, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* Divider lines */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 40px 0;
+    }
+
+    /* Search bar */
+    .search-box {
+      background: rgba(26, 26, 46, 0.8);
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+    }
+
+    /* Mobile TOC */
+    @media (max-width: 1024px) {
+      .sidebar { display: none; }
+      .sidebar.mobile-visible { 
+        display: block; 
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: 280px;
+        z-index: 1000;
+        background: var(--bg-secondary);
+        border-right: 1px solid var(--border);
+        overflow-y: auto;
+        padding: 20px;
+      }
+    }
+
+    /* Toggle mobile menu button */
+    #menuToggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      #menuToggle { display: block; }
+    }
+  </style>
+</head>
+<body class="hero-bg grid-overlay">
+  <!-- Progress bar -->
+  <div id="progressBar" style="width: 0%"></div>
+
+  <!-- Mobile menu toggle -->
+  <button id="menuToggle" onclick="toggleMobileMenu()">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </button>
+
+  <!-- Floating orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 pt-16 pb-12 px-6 text-center">
+    <div class="inline-flex items-center gap-3 mb-6">
+      <span class="tag-pill">视频文档</span>
+      <span class="tag-pill">May 16 更新</span>
+      <span class="badge-new tag-pill">完整版</span>
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight">
+      <span class="bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">Codex 全解</span>
+    </h1>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+      OpenAI 官方 AI 程式碼編寫助手 — 從安裝到大型專案實戰
+    </p>
+    <div class="flex justify-center gap-4 flex-wrap">
+      <a href="#section-1" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 rounded-full font-medium hover:opacity-90 transition">
+        開始學習 →
+      </a>
+      <a href="#toc" class="px-6 py-3 border border-purple-500/30 rounded-full font-medium hover:bg-purple-500/10 transition">
+        查看目錄
+      </a>
+    </div>
+  </header>
+
+  <!-- Main content grid -->
+  <div class="relative z-10 flex max-w-7xl mx-auto px-6 gap-8">
+    <!-- Sidebar TOC -->
+    <aside id="sidebar" class="sidebar w-72 flex-shrink-0 sticky top-8 h-fit">
+      <div class="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6">
+        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          目錄導航
+        </h3>
+        <nav id="toc" class="space-y-1">
+        </nav>
+        <div class="divider"></div>
+        <div class="flex items-center gap-2 text-xs text-gray-500">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          資料來源：秋芝2046知識庫
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 min-w-0 pb-20">
+      <!-- Sections will be injected by JS -->
+    </main>
+  </div>
+
+  <!-- Nav dots -->
+  <div id="navDots" class="fixed right-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-50"></div>
+
+  <!-- Footer -->
+  <footer class="relative z-10 text-center py-12 text-gray-500 text-sm border-t border-white/5">
+    <p>Generated by 小小斌馬 · Codex 全解【視頻文檔】</p>
+  </footer>
+
+<script>
+  // Table of Contents data
+  const tocData = [
+    { num: '一', title: '準備工作', subs: ['安裝下載（需魔法）', '界面介紹'] },
+    { num: '二', title: '基礎操作', subs: ['上下文管理', '額度狀態', '模型選擇'] },
+    { num: '三', title: '本地文件讀寫', subs: [] },
+    { num: '四', title: '命令列使用', subs: [] },
+    { num: '五', title: '持久記憶', subs: ['全局級長期記憶', '項目級持久記憶', '自動記憶'] },
+    { num: '六', title: '大型專案規劃與落地', subs: [] },
+    { num: '七', title: '插件', subs: ['插件位置&情況', '插件（中文）大全', '重點插件介紹'] },
+    { num: '八', title: 'Skills&CLI', subs: ['推薦下載的 skill', 'skill 合集網站：lobehub', '創建自己的 skill', '推薦下載的 CLI'] },
+    { num: '九', title: 'MCP', subs: ['MCP 位置', 'MCP 安裝', 'MCP 擴展'] },
+    { num: '十', title: '自動化任務', subs: ['自動化面板', '日常語言交互設置'] }
+  ];
+
+  const sectionContent = {
+    1: {
+      icon: '🚀',
+      title: '準備工作',
+      color: '#6c5ce7',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">在開始使用 Codex 之前，需要完成以下準備工作。這些步驟確保你能夠順利登入並開始使用這款強大的 AI 程式碼助手。</p>
+        <div class="space-y-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+              <span class="text-purple-400">01</span> 安裝下載（需魔法）
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">由于 Codex 官网资源需特殊网络环境访问，建议提前准备好稳定的工作环境。</p>
+            <div class="code-block mb-3">
+              <code># 步骤 1：官网下载 Codex 客户端
+# 访问 OpenAI Codex 官方页面下载对应系统版本
+
+# 步骤 2：安装并启动 Codex</code>
+            </div>
+            <p class="text-xs text-gray-500">💡 提示：Codex 支持 macOS、Windows、Linux 全平台</p>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-2 flex items-center gap-2">
+              <span class="text-purple-400">02</span> 登入 Codex
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">登入方式非常靈活，支援兩種主流方式：</p>
+            <div class="bg-gradient-to-r from-purple-900/30 to-transparent rounded-lg p-4 border-l-2 border-purple-500">
+              <p class="text-sm text-gray-300"><strong class="text-purple-300">用 ChatGPT 账号登入</strong>（推薦）</p>
+              <p class="text-xs text-gray-500 mt-1">只需要有一個 ChatGPT 賬號即可，無需額外設置</p>
+            </div>
+            <div class="bg-white/5 rounded-lg p-4 mt-3">
+              <p class="text-sm text-gray-300"><strong class="text-blue-300">用 API Key 登入</strong></p>
+              <p class="text-xs text-gray-500 mt-1">適合進階用戶，可綁定自己的 OpenAI API 額度</p>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    2: {
+      icon: '⚡',
+      title: '基礎操作',
+      color: '#00cec9',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">掌握 Codex 的基礎操作，讓你能夠高效地與 AI 協作編寫代碼。這些核心功能是日常使用中最頻繁接觸的。</p>
+        <div class="space-y-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-2">📌 上下文管理</h4>
+            <p class="text-gray-400 text-sm mb-3">Codex 會自動記憶對話中的上下文信息，你也可以手動引用項目中的特定文件來幫助 AI 更好地理解你的需求。</p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="tag-pill">自動上下文</span>
+              <span class="tag-pill">文件引用</span>
+              <span class="tag-pill">代碼補全</span>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-2">💰 額度狀態</h4>
+            <p class="text-gray-400 text-sm mb-3">查看剩余額度有兩種方式：</p>
+            <div class="grid grid-cols-2 gap-3 mt-3">
+              <div class="bg-gradient-to-br from-cyan-900/30 to-transparent rounded-lg p-3 border border-cyan-500/20">
+                <p class="text-xs text-cyan-400 font-medium mb-1">方式 1</p>
+                <p class="text-sm text-gray-300">系統設置查看</p>
+              </div>
+              <div class="bg-gradient-to-br from-blue-900/30 to-transparent rounded-lg p-3 border border-blue-500/20">
+                <p class="text-xs text-blue-400 font-medium mb-1">方式 2</p>
+                <p class="text-sm text-gray-300">斜槓命令查看</p>
+              </div>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-2">🤖 模型選擇</h4>
+            <p class="text-gray-400 text-sm mb-3">Codex 支援多個模型版本，你可以根據任務需求和預算靈活切換。</p>
+            <div class="flex gap-3 mt-3 overflow-x-auto pb-2">
+              <div class="bg-white/5 rounded-lg px-4 py-2 text-center min-w-[80px]">
+                <p class="text-purple-400 font-bold">o4</p>
+                <p class="text-xs text-gray-500">旗艦</p>
+              </div>
+              <div class="bg-white/5 rounded-lg px-4 py-2 text-center min-w-[80px]">
+                <p class="text-blue-400 font-bold">o3</p>
+                <p class="text-xs text-gray-500">高效</p>
+              </div>
+              <div class="bg-white/5 rounded-lg px-4 py-2 text-center min-w-[80px]">
+                <p class="text-green-400 font-bold">o3-mini</p>
+                <p class="text-xs text-gray-500">快速</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    3: {
+      icon: '📁',
+      title: '本地文件讀寫',
+      color: '#fdcb6e',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">Codex 能夠直接讀取和修改你本地項目中的文件，讓 AI 在完整的代碼庫上下文中工作。</p>
+        <div class="sub-item rounded-xl p-4 mb-4">
+          <h4 class="font-semibold text-white mb-3">📖 文件讀取</h4>
+          <p class="text-gray-400 text-sm mb-3">你可以讓 Codex 分析整個項目結構，閱讀特定文件，或理解複雜的代碼邏輯。</p>
+          <div class="code-block">
+            <code># 範例：讓 Codex 讀取並分析項目
+"請分析這個項目的架構，並指出可能的優化點"</code>
+          </div>
+        </div>
+        <div class="sub-item rounded-xl p-4">
+          <h4 class="font-semibold text-white mb-3">✏️ 文件寫入</h4>
+          <p class="text-gray-400 text-sm mb-3">Codex 可以幫你創建新文件、修改現有文件、或重構整個模塊。</p>
+          <div class="code-block">
+            <code># 範例：讓 Codex 創建一個新组件
+"創建一個 React hooks 用於 API 請求封裝"</code>
+          </div>
+        </div>
+      `
+    },
+    4: {
+      icon: '⌨️',
+      title: '命令列使用',
+      color: '#74b9ff',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">除了圖形界面，Codex 也支持完整的命令列操作，讓你可以将它整合到 CI/CD 流程或自動化腳本中。</p>
+        <div class="sub-item rounded-xl p-4">
+          <h4 class="font-semibold text-white mb-3">🔧 核心命令</h4>
+          <div class="code-block">
+            <code># 初始化 Codex
+codex init
+
+# 執行單次任務
+codex exec "你的任務描述"
+
+# 使用完整自動模式（自動批准變更）
+codex exec --full-auto "重構 auth 模塊"
+
+# YOLO 模式（無審批，最快速）
+codex exec --yolo "快速修復這個 bug"</code>
+          </div>
+        </div>
+        <div class="mt-4 p-4 bg-gradient-to-r from-blue-900/20 to-transparent rounded-lg border border-blue-500/20">
+          <p class="text-sm text-gray-300">💡 <strong>專業技巧：</strong>在使用 <code class="text-blue-300">--yolo</code> 模式前，確保你的代碼已經提交到 Git，这样可以随时回滚。</p>
+        </div>
+      `
+    },
+    5: {
+      icon: '🧠',
+      title: '持久記憶',
+      color: '#fd79a8',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">Codex 的持久記憶功能讓它能夠跨會話記住你的偏好設置和項目上下文，大幅提升長期使用體驗。</p>
+        <div class="grid gap-4">
+          <div class="sub-item rounded-xl p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">🌍</span>
+              <h4 class="font-semibold text-white">全局級長期記憶</h4>
+            </div>
+            <p class="text-gray-400 text-sm mb-3">在 Codex 的系統設置中，你可以配置全局記憶內容，讓它在所有項目中都記住你的偏好。</p>
+            <div class="code-block">
+              <code># 示例：設置全局記憶
+"我是一名前端開發者，使用 React + TypeScript，
+偏好函數式編程風格"</code>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">📂</span>
+              <h4 class="font-semibold text-white">項目級持久記憶</h4>
+            </div>
+            <p class="text-gray-400 text-sm mb-3">每個項目都可以有獨立的記憶文件，存放該項目特有的上下文、規範和約定。</p>
+            <div class="code-block">
+              <code># .codex/memory.md
+項目使用 NestJS + Prisma
+API 規範遵循 OpenAPI 3.0
+代碼格式化使用 Prettier</code>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl">⚡</span>
+              <h4 class="font-semibold text-white">自動記憶</h4>
+            </div>
+            <p class="text-gray-400 text-sm mb-3">Codex 會自動學習你在對話中的偏好，並在後續任務中套用，逐漸形成最適合你的工作方式。</p>
+          </div>
+        </div>
+      `
+    },
+    6: {
+      icon: '🏗️',
+      title: '大型專案規劃與落地',
+      color: '#00b894',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">Codex 不僅能幫你寫代碼，還能作為你的項目架構師，幫你規劃和落地大型復雜項目。</p>
+        <div class="sub-item rounded-xl p-4 mb-4">
+          <h4 class="font-semibold text-white mb-3">📐 項目規劃</h4>
+          <p class="text-gray-400 text-sm mb-3">你可以讓 Codex 先分析需求、製定技術方案、建立項目結構，再逐步實現。</p>
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <div class="bg-white/5 rounded-lg p-3">
+              <p class="text-emerald-400 text-sm font-medium">1. 需求分析</p>
+              <p class="text-xs text-gray-500">理解業務邏輯與用戶場景</p>
+            </div>
+            <div class="bg-white/5 rounded-lg p-3">
+              <p class="text-emerald-400 text-sm font-medium">2. 技術選型</p>
+              <p class="text-xs text-gray-500">選擇棧、框架、工具</p>
+            </div>
+            <div class="bg-white/5 rounded-lg p-3">
+              <p class="text-emerald-400 text-sm font-medium">3. 架構設計</p>
+              <p class="text-xs text-gray-500">模塊劃分、接口定義</p>
+            </div>
+            <div class="bg-white/5 rounded-lg p-3">
+              <p class="text-emerald-400 text-sm font-medium">4. 分步實現</p>
+              <p class="text-xs text-gray-500">逐步完成每個模塊</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 bg-gradient-to-r from-emerald-900/20 to-transparent rounded-lg border border-emerald-500/20">
+          <p class="text-sm text-gray-300">💡 <strong>最佳實踐：</strong>對於大型項目，建議先用自然語言描述完整需求，等待 Codex 給出詳細的技術方案後再開始實施。</p>
+        </div>
+      `
+    },
+    7: {
+      icon: '🧩',
+      title: '插件',
+      color: '#e17055',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">插件系統是 Codex 強大的核心擴展機制，讓你能夠根據不同需求定制 AI 能力。</p>
+        <div class="grid gap-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-orange-400">1.</span> 插件位置 &情況
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">插件市場位於 Codex 設置面板中，目前已有大量中文插件可供使用。</p>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-orange-400">2.</span> 插件（中文）大全
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">涵蓋前端、後端、數據庫、DevOps、AI 等多個領域的插件。</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="tag-pill">前端開發</span>
+              <span class="tag-pill">後端開發</span>
+              <span class="tag-pill">數據庫</span>
+              <span class="tag-pill">DevOps</span>
+              <span class="tag-pill">AI 工具</span>
+              <span class="tag-pill">安全測試</span>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-orange-400">3.</span> 重點插件介紹
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">以下是目前最受歡迎的插件：</p>
+            <div class="space-y-2 mt-3">
+              <div class="bg-white/5 rounded-lg p-3 flex items-center justify-between">
+                <span class="text-sm text-gray-300">🌐 Web 開潑輔助</span>
+                <span class="text-xs text-green-400">熱門</span>
+              </div>
+              <div class="bg-white/5 rounded-lg p-3 flex items-center justify-between">
+                <span class="text-sm text-gray-300">🐛 Bug 追踨集成</span>
+                <span class="text-xs text-green-400">熱門</span>
+              </div>
+              <div class="bg-white/5 rounded-lg p-3 flex items-center justify-between">
+                <span class="text-sm text-gray-300">📝 文檔生成</span>
+                <span class="text-xs text-blue-400">推薦</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    8: {
+      icon: '⚙️',
+      title: 'Skills & CLI',
+      color: '#a29bfe',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">Skills 是 Codex 的任務模板系統，讓你可以快速調用預先配置好的專業工作流。</p>
+        <div class="grid gap-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-purple-400">1.</span> 推薦下載的 Skill
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">這些是社群人氣最高的 Skills，能大幅提升特定場景的工作效率。</p>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-purple-400">2.</span> Skill 合集網站：LobeHub
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">LobeHub 是一個優質的 Codex Skills 分享平台，匯聚了全球開發者分享的各類專業 Skills。</p>
+            <div class="mt-3 p-3 bg-gradient-to-r from-purple-900/20 to-transparent rounded-lg border border-purple-500/20">
+              <p class="text-sm text-purple-300">🔗 lobehub.com</p>
+              <p class="text-xs text-gray-500 mt-1">瀏覽、搜索、安裝來自社區的 Skills</p>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-purple-400">3.</span> 創建自己的 Skill
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">你可以將常用的任務流程封裝成 Skill，方便團隊復用和分享。</p>
+            <div class="code-block mt-3">
+              <code># 創建自定義 Skill 結構
+.skill/
+  ├── SKILL.md      # Skill 定義文件
+  ├── prompt.md     # 任務提示詞
+  └── references/   # 參考資料</code>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-purple-400">4.</span> 推薦下載的 CLI
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">增強 Codex 功能的命令行工具。</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="tag-pill">gh</span>
+              <span class="tag-pill">git</span>
+              <span class="tag-pill">npm</span>
+              <span class="tag-pill">docker</span>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    9: {
+      icon: '🔌',
+      title: 'MCP',
+      color: '#00cec9',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">MCP（Model Context Protocol）是 Codex 連接外部工具和服務的標準協議，讓 AI 能夠與各類開發工具無縫集成。</p>
+        <div class="grid gap-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-teal-400">1.</span> MCP 位置
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">在 Codex 設置的「集成」區域可以找到 MCP 服務器管理面板。</p>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-teal-400">2.</span> MCP 安裝
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">安裝新的 MCP 服務器非常簡單，只需配置服務器地址即可。</p>
+            <div class="code-block mt-3">
+              <code># MCP 服務器配置示例
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"]
+    }
+  }
+}</code>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-teal-400">3.</span> MCP 擴展
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">社群提供了大量預構建的 MCP 服務器，涵蓋代碼托管、數據庫、雲服務等。</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="tag-pill">GitHub</span>
+              <span class="tag-pill">PostgreSQL</span>
+              <span class="tag-pill">Slack</span>
+              <span class="tag-pill">AWS</span>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    10: {
+      icon: '🤖',
+      title: '自動化任務',
+      color: '#ffeaa7',
+      content: `
+        <p class="text-gray-300 leading-relaxed mb-6">Codex 的自動化功能讓你可以設定定時任務和工作流，實現真正的「設置一次，長期運行」。</p>
+        <div class="grid gap-4">
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-yellow-400">1.</span> 自動化面板
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">可視化的自動化面板讓你設定觸發條件和執行動作。</p>
+            <div class="mt-3 p-3 bg-gradient-to-r from-yellow-900/20 to-transparent rounded-lg border border-yellow-500/20">
+              <p class="text-xs text-gray-400">觸發條件</p>
+              <p class="text-sm text-yellow-300 mt-1">每天早上 9:00 自動拉取代碼審查</p>
+              <p class="text-xs text-gray-400 mt-2">執行動作</p>
+              <p class="text-sm text-yellow-300 mt-1">運行 Codex 審查所有未合並的 PR</p>
+            </div>
+          </div>
+          <div class="sub-item rounded-xl p-4">
+            <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+              <span class="text-yellow-400">2.</span> 日常語言交互設置
+            </h4>
+            <p class="text-gray-400 text-sm mb-3">用自然語言描述你的需求，Codex 會自動翻譯成具體的自動化流程。</p>
+            <div class="code-block mt-3">
+              <code># 示例：用自然語言設定自動化
+"每天下午6點自動備份我的數據庫，
+並將備份文件上傳到 Google Drive"</code>
+            </div>
+          </div>
+        </div>
+      `
+    }
+  };
+
+  // Build TOC
+  const tocNav = document.getElementById('toc');
+  tocData.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'toc-item rounded-lg px-3 py-2 cursor-pointer';
+    div.innerHTML = `
+      <div class="flex items-center gap-2 text-sm">
+        <span class="text-purple-400 font-bold text-xs">${item.num}</span>
+        <span class="text-gray-300">${item.title}</span>
+      </div>
+      ${item.subs.length > 0 ? `<div class="ml-5 mt-1 space-y-1">${item.subs.map(s => `<div class="text-xs text-gray-500 hover:text-purple-400 cursor-pointer">· ${s}</div>`).join('')}</div>` : ''}
+    `;
+    div.onclick = () => document.getElementById(`section-${idx + 1}`).scrollIntoView({ behavior: 'smooth' });
+    tocNav.appendChild(div);
+  });
+
+  // Build sections
+  const main = document.querySelector('main');
+  tocData.forEach((item, idx) => {
+    const sec = sectionContent[idx + 1];
+    const section = document.createElement('section');
+    section.id = `section-${idx + 1}`;
+    section.className = 'reveal mb-12';
+    section.innerHTML = `
+      <div class="section-card rounded-2xl p-8 relative overflow-hidden" style="border-color: ${sec.color}20">
+        <div class="section-number">${item.num}</div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-3xl">${sec.icon}</span>
+            <div>
+              <span class="text-xs font-medium px-2 py-1 rounded-full" style="background: ${sec.color}20; color: ${sec.color}">${item.num}</span>
+              <h2 class="text-2xl font-bold text-white mt-1">${item.title}</h2>
+            </div>
+          </div>
+          <div class="text-base leading-relaxed text-gray-300">
+            ${sec.content}
+          </div>
+        </div>
+      </div>
+    `;
+    main.appendChild(section);
+  });
+
+  // Build nav dots
+  const navDots = document.getElementById('navDots');
+  tocData.forEach((item, idx) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.onclick = () => document.getElementById(`section-${idx + 1}`).scrollIntoView({ behavior: 'smooth' });
+    navDots.appendChild(dot);
+  });
+
+  // Scroll reveal animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active TOC highlight
+  const tocObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = parseInt(entry.target.id.replace('section-', '')) - 1;
+        document.querySelectorAll('.toc-item').forEach((el, i) => {
+          el.classList.toggle('active', i === idx);
+        });
+        document.querySelectorAll('.nav-dot').forEach((el, i) => {
+          el.classList.toggle('active', i === idx);
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('section[id^="section-"]').forEach(el => tocObserver.observe(el));
+
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progressBar').style.width = (scrollTop / scrollHeight * 100) + '%';
+  });
+
+  // Mobile menu toggle
+  function toggleMobileMenu() {
+    document.getElementById('sidebar').classList.toggle('mobile-visible');
+  }
+</script>
+</body>
+</html>
