@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台科大企管系教授研究領域</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .professor-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: default;
+        }
+        .professor-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(100, 200, 255, 0.5);
+        }
+        .research-tag {
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .research-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        .research-tag:hover::before {
+            left: 100%;
+        }
+        .header-glow {
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+            animation: pulse-glow 3s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 20px rgba(100, 200, 255, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(100, 200, 255, 0.8); }
+            100% { text-shadow: 0 0 20px rgba(100, 200, 255, 0.5); }
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="text-gray-100 p-6 md:p-12">
+    <div class="max-w-5xl mx-auto">
+        <header class="text-center mb-12 fade-in-up">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-200 header-glow">
+                國立臺灣科技大學
+            </h1>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                企業管理系 專任師資
+            </h2>
+            <p class="text-gray-400 text-lg">Department of Business Administration</p>
+            <div class="mt-8 inline-block px-6 py-2 rounded-full glass-panel text-sm text-cyan-400 border border-cyan-400/30">
+                Research Areas Overview
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-1 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">吳克振</h3>
+                    <span class="px-3 py-1 text-xs font-semibold bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">教授</span>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 ccwu@mail.ntust.edu.tw</p>
+                    <p>🏠 研究室: MA-512</p>
+                    <p>🎓 美國加州柏克萊大學作業研究博士</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-purple-500/10 text-purple-200 rounded-lg text-sm border border-purple-500/20">品牌管理</span>
+                        <span class="research-tag px-3 py-1.5 bg-purple-500/10 text-purple-200 rounded-lg text-sm border border-purple-500/20">行銷與人工智慧</span>
+                        <span class="research-tag px-3 py-1.5 bg-purple-500/10 text-purple-200 rounded-lg text-sm border border-purple-500/20">策略性行銷</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-2 relative overflow-hidden border-cyan-500/30">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-cyan-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">欒斌</h3>
+                    <div class="flex flex-col items-end">
+                        <span class="px-3 py-1 text-xs font-semibold bg-cyan-500/20 text-cyan-300 rounded-full border border-cyan-500/30">教授</span>
+                        <span class="text-[10px] text-yellow-400 mt-1">🌟 教育部師鐸獎</span>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 luarn@mail.ntust.edu.tw</p>
+                    <p>🏠 研究室: T2-408-4</p>
+                    <p>🎓 美國威斯康辛大學工業工程博士</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-cyan-500/10 text-cyan-200 rounded-lg text-sm border border-cyan-500/20">電子商務</span>
+                        <span class="research-tag px-3 py-1.5 bg-cyan-500/10 text-cyan-200 rounded-lg text-sm border border-cyan-500/20">網路行銷</span>
+                        <span class="research-tag px-3 py-1.5 bg-cyan-500/10 text-cyan-200 rounded-lg text-sm border border-cyan-500/20">區塊鏈應用</span>
+                        <span class="research-tag px-3 py-1.5 bg-cyan-500/10 text-cyan-200 rounded-lg text-sm border border-cyan-500/20">Web 3.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-3 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">張順教</h3>
+                    <span class="px-3 py-1 text-xs font-semibold bg-pink-500/20 text-pink-300 rounded-full border border-pink-500/30">教授</span>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 hlyun56@gmail.com</p>
+                    <p>🏠 研究室: MA-511</p>
+                    <p>🎓 PhD in Economics, SUNY at Stony Brook</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-pink-500/10 text-pink-200 rounded-lg text-sm border border-pink-500/20">高科技產業分析</span>
+                        <span class="research-tag px-3 py-1.5 bg-pink-500/10 text-pink-200 rounded-lg text-sm border border-pink-500/20">人工智慧</span>
+                        <span class="research-tag px-3 py-1.5 bg-pink-500/10 text-pink-200 rounded-lg text-sm border border-pink-500/20">賽局理論</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-yellow-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">葉穎蓉</h3>
+                    <div class="flex flex-col items-end">
+                        <span class="px-3 py-1 text-xs font-semibold bg-yellow-500/20 text-yellow-300 rounded-full border border-yellow-500/30">教授</span>
+                        <span class="text-[10px] text-gray-400 mt-1">國際長</span>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 yyeh@mail.ntust.edu.tw</p>
+                    <p>🏠 研究室: MA-510</p>
+                    <p>🎓 PhD in Industrial Management, UW-Madison</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-yellow-500/10 text-yellow-200 rounded-lg text-sm border border-yellow-500/20">人力資源管理</span>
+                        <span class="research-tag px-3 py-1.5 bg-yellow-500/10 text-yellow-200 rounded-lg text-sm border border-yellow-500/20">組織行為</span>
+                        <span class="research-tag px-3 py-1.5 bg-yellow-500/10 text-yellow-200 rounded-lg text-sm border border-yellow-500/20">工作生活平衡</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-5 relative overflow-hidden border-emerald-500/30">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-emerald-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">張譯尹</h3>
+                    <span class="px-3 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">特聘教授</span>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 y.chang@mail.ntust.edu.tw</p>
+                    <p>🏠 研究室: MA-517</p>
+                    <p>🎓 英國 Loughborough University 博士</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-emerald-500/10 text-emerald-200 rounded-lg text-sm border border-emerald-500/20">跨文化行銷</span>
+                        <span class="research-tag px-3 py-1.5 bg-emerald-500/10 text-emerald-200 rounded-lg text-sm border border-emerald-500/20">人工智慧</span>
+                        <span class="research-tag px-3 py-1.5 bg-emerald-500/10 text-emerald-200 rounded-lg text-sm border border-emerald-500/20">國際人力資源</span>
+                        <span class="research-tag px-3 py-1.5 bg-emerald-500/10 text-emerald-200 rounded-lg text-sm border border-emerald-500/20">知識轉移</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="professor-card glass-panel rounded-2xl p-6 fade-in-up stagger-6 relative overflow-hidden border-orange-500/30">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-orange-500 rounded-full blur-3xl opacity-20"></div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white">盛麗慧</h3>
+                    <span class="px-3 py-1 text-xs font-semibold bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30">教授</span>
+                </div>
+                <div class="text-xs text-gray-400 mb-4 space-y-1">
+                    <p>📧 msheng@mail.ntust.edu.tw</p>
+                    <p>🏠 研究室: MA-515</p>
+                    <p>🎓 美國明尼蘇達大學博士</p>
+                </div>
+                <div class="border-t border-white/10 pt-4">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 mb-3 font-bold">研究範疇</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="research-tag px-3 py-1.5 bg-orange-500/10 text-orange-200 rounded-lg text-sm border border-orange-500/20">未來行銷</span>
+                        <span class="research-tag px-3 py-1.5 bg-orange-500/10 text-orange-200 rounded-lg text-sm border border-orange-500/20">全球行銷創新</span>
+                        <span class="research-tag px-3 py-1.5 bg-orange-500/10 text-orange-200 rounded-lg text-sm border border-orange-500/20">數位行銷</span>
+                        <span class="research-tag px-3 py-1.5 bg-orange-500/10 text-orange-200 rounded-lg text-sm border border-orange-500/20">循環經濟</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-16 text-center text-gray-500 text-sm fade-in-up">
+            <p>資料來源：<a href="https://ba.ntust.edu.tw/" class="text-cyan-400 hover:underline hover:text-cyan-300">台科大企管系官方網站</a></p>
+            <p class="mt-2">Generated by 小小斌馬助理 | <span id="date"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive Particle Effect
+        document.addEventListener('mousemove', (e) => {
+            const circles = document.querySelectorAll('.professor-card');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            circles.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const cardX = rect.left + rect.width / 2;
+                const cardY = rect.top + rect.height / 2;
+                
+                const distX = (e.clientX - cardX) * 0.01;
+                const distY = (e.clientY - cardY) * 0.01;
+
+                card.style.transform = `translateY(-8px) perspective(1000px) rotateY(${distX}deg) rotateX(${-distY}deg)`;
+            });
+        });
+
+        // Add date
+        const dateElement = document.getElementById('date');
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.innerText = new Date().toLocaleDateString('zh-TW', options);
+
+        // Simple Intersection Observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.professor-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
